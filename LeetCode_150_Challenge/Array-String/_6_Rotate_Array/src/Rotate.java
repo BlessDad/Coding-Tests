@@ -14,6 +14,68 @@ public class Rotate {
     }
 
     public void rotate(int[] nums, int k){
+
+        // 1 2 3 4
+        // k = 2
+        // 3 4 1 2
+
+        int nums2[] = new int[nums.length];
+
+        int n = nums.length;
+        k = k%n;
+        for (int i=0; i<n; i++){
+            nums2[i] = nums[(n-k+i)%n];
+        }
+
+        for (int i=0; i<n; i++){
+            nums[i] = nums2[i];
+        }
+
+        class Solution {
+
+            public int change(int []nums, int before, int keep){
+                if (before == 0){
+                    nums[before] = nums[nums.length - 1];
+                    return keep;
+                }
+                else {
+                    int trying = nums[before];
+                    nums[before] = keep;
+                    return trying;
+                }
+
+            }
+            public void rotate(int[] nums, int k) {
+                // 1 2 3 4
+                // k = 2
+                // 3 4 1 2
+                // 1
+                // int nums2[] = new int[nums.length];
+
+                int n = nums.length;
+                k = k%n;
+                System.out.println(k);
+                int keep = nums[0];
+                for (int i=0; i<k; i++){
+                    // nums2[i] = nums[(n-k+i)%n];
+                    // swap(nums, i, (n-k+i)%n); 불가 !
+
+                    for (int j=0; j<n; j++){
+                        keep = change(nums, j, keep);
+                    }
+
+                }
+
+                // for (int i=0; i<n; i++){
+                //     nums[i] = nums2[i];
+                // }
+
+            }
+        }
+
+
+
+
         // 차분하게 생각해보자.. 방법은 많을 것.
         // 1, 2, 3, 4, 5 이고 k = 3 이라면
         // 3, 4, 5, 1, 2 가 되면 된다.
@@ -35,7 +97,7 @@ public class Rotate {
         // [1,2] , k = 4
 
         // k는 결국, 몇 번 할거냐는 거다. k 에 따라 피봇 위치를 옮겨주면 되는거 아닌가?
-        int n = nums.length;
+
 
         mirroring(nums, 0, n-1);
         System.out.println(Arrays.toString(nums));
@@ -46,3 +108,4 @@ public class Rotate {
 
     }
 }
+
